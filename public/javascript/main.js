@@ -1,14 +1,29 @@
 let personnage = {
     nom: "Ahmed",
     lieu: "maison",
-    argent: 50,
-    mainDroite: [], // rableau vide pour le panier
-    mainGauche: [], //sert à rien pour l'instant 
+    argent: 19,
+    mainDroite: [],
+    mainGauche: [],
     seDeplacer(lieu) {
-        this.lieu = lieu.nom; // pour le changement de lieu du personnage
+        this.lieu = lieu.nom;
         console.log(`${this.nom} se déplace vers ${lieu.nom}.`);
+    },
+    payerArticle(article) {
+        if (this.argent >= article.prix) {
+            this.argent -= article.prix;
+            console.log(`${this.nom} a payé ${article.prix}€ pour ${article.nom}.`);
+        } else {
+            console.log(`${this.nom} n'a pas assez d'argent pour acheter ${article.nom}.`);
+        }
+    },
+    couper(ingredient, outil) {
+        if (ingredient.etats.includes("entier")) {
+            ingredient.etats = "coupé";
+            console.log(`${ingredient.nom} a été coupé avec ${outil.nom}.`);
+        }
     }
 };
+
 
 
 let maison = {
@@ -49,6 +64,20 @@ personnage.prendrePanier = function () {
 personnage.seDeplacer(epicerie);
 personnage.prendrePanier();
 console.log(`${personnage.nom} a dans sa main droite :`, personnage.mainDroite);
+
+// test à voit si
+epicerie.ingredients.forEach((ingredient) => {
+    // ajouter au panier
+    personnage.mainDroite[0].contenu.push(ingredient);
+    // msg cet ingrediant à ete ajouté 
+    console.log(`${personnage.nom} a ajouté ${ingredient.nom} dans son panier.`);
+
+    personnage.payerArticle(ingredient);
+    // afficher l'argent qu'il reste 
+    console.log(`${personnage.nom} a maintenant ${personnage.argent}€.`);
+});
+
+
 
 
 
