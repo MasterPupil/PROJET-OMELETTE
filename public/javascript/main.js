@@ -101,6 +101,18 @@ personnage.mainDroite[0].contenu.forEach(ingredient => {
 personnage.mainDroite[0].contenu = [];//vider pannier
 console.log("Le panier est vide!");
 
+// Retour à l'épicerie pour rendre le panier
+personnage.seDeplacer(epicerie);
+console.log(`${personnage.nom} retourne à l'épicerie pour rendre le panier.`);
+
+epicerie.paniers.push(personnage.mainDroite[0]); //rendre le panier dans l'épicerie
+personnage.mainDroite.pop(); //retirer le panier de la mainDroite
+console.log(`${personnage.nom} a rendu le panier à l'épicerie.`);
+
+//retour maison
+personnage.seDeplacer(maison);
+console.log(`${personnage.nom} retourne à la maison.`);
+
 
 
 
