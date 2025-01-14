@@ -17,10 +17,28 @@ let personnage = {
         }
     },
     couper(ingredient, outil) {
-        if (ingredient.etats.includes("entier")) {
-            ingredient.etats = "coupé";
+        if (ingredient.etat === "entier" && outil.action === "couper") {
+            ingredient.etat = "coupé";
             console.log(`${ingredient.nom} a été coupé avec ${outil.nom}.`);
+        } else {
+            console.log(`Impossible de couper ${ingredient.nom}.`);
         }
+    }
+    
+};
+let poele = {
+    nom: "Poêle",
+    contenu: [],
+    cuire() {
+        console.log("La cuisson commence...");
+        setTimeout(() => {
+            if (this.contenu.length > 0) {
+                this.contenu[0].etat = "cuit"; 
+                console.log("Notre omelette est cuite :)");
+            } else {
+                console.log("La poêle est vide, rien à cuire.");
+            }
+        }, 4000); //4 secondes
     }
 };
 
@@ -113,6 +131,44 @@ console.log(`${personnage.nom} a rendu le panier à l'épicerie.`);
 personnage.seDeplacer(maison);
 console.log(`${personnage.nom} retourne à la maison.`);
 
+
+//definir le couteau
+let couteau = {
+    nom: "Couteau",
+    action: "couper"
+};
+//methode couper ameilorer
+personnage.couper = function (ingredient, outil) {
+    if (ingredient.etat === "entier" && outil.action === "couper") {
+        ingredient.etat = "coupé";
+        console.log(`${ingredient.nom} a été coupé avec ${outil.nom}.`);
+    } else {
+        console.log(`Impossible de couper ${ingredient.nom}.`);
+    }
+};
+
+//preparer les aliments dans le bol
+bol.contenu.forEach((ingredient) => {
+    if (ingredient.etat === "entier") {
+        personnage.couper(ingredient, couteau);
+        console.log(`${ingredient.nom} a été coupé.`);
+    }
+});
+
+//melanger les alimentsdans le bol
+bol.melanger("omelette");
+console.log("Les ingrédients ont été mélangés pour former une omelette.");
+console.log("Contenu du bol :", bol.contenu);
+
+
+//transférer dans la poele 
+poele.contenu.push(bol.contenu[0]); 
+bol.contenu = []; //vider le bol
+console.log("Le mélange est maintenant dans la poêle.");
+console.log("Contenu de la poêle :", poele.contenu);
+
+//lancement de la cuisson
+poele.cuire();
 
 
 
