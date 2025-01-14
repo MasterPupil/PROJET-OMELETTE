@@ -38,9 +38,9 @@ let epicerie = {
 };
 
 // Testtest tessst
-console.log(`Début : ${personnage.nom} est à la ${personnage.lieu}.`);
+console.log(`Début : ${personnage.nom} est à la ${personnage.lieu}`);
 personnage.seDeplacer(epicerie);
-console.log(`${personnage.nom} est maintenant à la ${personnage.lieu}.`);
+console.log(`${personnage.nom} est maintenant à la ${personnage.lieu}`);
 
 // listes disponibles à l'épicerie
 epicerie.ingredients = [
@@ -57,7 +57,7 @@ personnage.prendrePanier = function () {
         this.mainDroite.push(panier); // pour ajouter au panier
         console.log(`${this.nom} a pris un panier.`);
     } else {
-        console.log(`Il n'y a plus de panier disponible à l'épicerie.`);
+        console.log(`Il n'y a plus de panier disponible à l'épicerie`);
     }
 };
 
@@ -70,14 +70,36 @@ epicerie.ingredients.forEach((ingredient) => {
     // ajouter au panier
     personnage.mainDroite[0].contenu.push(ingredient);
     // msg cet ingrediant à ete ajouté 
-    console.log(`${personnage.nom} a ajouté ${ingredient.nom} dans son panier.`);
+    console.log(`${personnage.nom} a ajouté ${ingredient.nom} dans le panier`);
 
     personnage.payerArticle(ingredient);
     // afficher l'argent qu'il reste 
-    console.log(`${personnage.nom} a maintenant ${personnage.argent}€.`);
+    console.log(`${personnage.nom} a maintenant ${personnage.argent}€`);
 });
+//objet bol 
+let bol = {
+    contenu: [],
+    melanger(nomDuMelange) {
+        this.contenu = [{
+            nom: nomDuMelange,
+            etat: 'pas cuit',
+            prix: 0
+        }];
+    }
+};
 
 
+//retour à la maison et cuisine
+personnage.seDeplacer(maison);
+console.log(`${personnage.nom} est de retour à la maison.`);
+
+//mettre tout dans le bol
+personnage.mainDroite[0].contenu.forEach(ingredient => {
+    bol.contenu.push(ingredient);
+    console.log(`${ingredient.nom} a été ajouté dans le bol.`);
+});
+personnage.mainDroite[0].contenu = [];//vider pannier
+console.log("Le panier est vide!");
 
 
 
